@@ -27,12 +27,13 @@ export default function Contact() {
         body: JSON.stringify(data),
       });
 
-      if (!res.ok) throw new Error('전송 실패');
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? '전송 실패');
 
       setSuccess(true);
       form.reset();
-    } catch {
-      setError('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '전송 중 오류가 발생했습니다.');
     } finally {
       setLoading(false);
     }
