@@ -2,14 +2,40 @@
 import { useState, FormEvent } from 'react';
 
 export default function Contact() {
-  const [success, setSuccess] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTimeout(() => {
+    setLoading(true);
+    setError('');
+
+    const form = e.target as HTMLFormElement;
+    const data = {
+      name: (form.elements.namedItem('name') as HTMLInputElement).value,
+      email: (form.elements.namedItem('email') as HTMLInputElement).value,
+      phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
+      type: (form.elements.namedItem('type') as HTMLSelectElement).value,
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error('전송 실패');
+
       setSuccess(true);
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+      form.reset();
+    } catch {
+      setError('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -61,20 +87,20 @@ export default function Contact() {
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="name">이름</label>
-                    <input id="name" type="text" placeholder="홍길동" required />
+                    <input id="name" name="name" type="text" placeholder="홍길동" required />
                   </div>
                   <div className="form-group">
                     <label htmlFor="email">이메일</label>
-                    <input id="email" type="email" placeholder="example@email.com" required />
+                    <input id="email" name="email" type="email" placeholder="example@email.com" required />
                   </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="phone">연락처</label>
-                  <input id="phone" type="tel" placeholder="010-0000-0000" />
+                  <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="type">문의 유형</label>
-                  <select id="type" required>
+                  <select id="type" name="type" required>
                     <option value="">선택해주세요</option>
                     <option value="strategy">전략 컨설팅</option>
                     <option value="dx">디지털 트랜스포메이션</option>
@@ -88,13 +114,15 @@ export default function Contact() {
                   <label htmlFor="message">문의 내용</label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={5}
                     placeholder="문의 내용을 자유롭게 작성해 주세요."
                     required
                   />
                 </div>
-                <button type="submit" className="btn btn-primary btn-full btn-lg">
-                  문의 보내기
+                {error && <p style={{ color: '#ef4444', fontSize: '0.9rem' }}>{error}</p>}
+                <button type="submit" className="btn btn-primary btn-full btn-lg" disabled={loading}>
+                  {loading ? '전송 중...' : '문의 보내기'}
                 </button>
               </form>
             )}
