@@ -1,6 +1,5 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
+  "framework": "nextjs",
   "headers": [
     {
       "source": "/(.*)",
@@ -11,13 +10,7 @@
       ]
     },
     {
-      "source": "/style.css",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/script.js",
+      "source": "/_next/static/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
