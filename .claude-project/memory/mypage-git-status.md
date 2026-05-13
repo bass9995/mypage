@@ -1,13 +1,14 @@
 ---
 name: mypage-git-status
-description: mypage git 설정 및 원격 저장소 현황
+description: mypage git/GitHub/Vercel 배포 현황
 metadata:
   type: project
 ---
 
-- git user: `swanbay@dmate.kr` / `DMATE` (로컬 저장소 설정)
-- 초기 커밋: `9883569` (feat: 비즈니스 홈페이지 초기 구성)
+- git user: `swanbay@dmate.kr` / `DMATE`
 - 원격 저장소: `https://github.com/bass9995/mypage` (public, master 브랜치)
+- Vercel 프로젝트: `bass9995s-projects/mypage`
+- **GitHub ↔ Vercel 연동 완료** — `git push origin master` 하면 Vercel이 자동으로 빌드·배포
 
-**Why:** gh CLI로 생성 및 push 완료
-**How to apply:** `git push origin master` 로 추가 push 가능.
+**Why:** 수동 `vercel --prod` 없이 push만으로 배포 가능
+**How to apply:** 코드 수정 후 `git push origin master` 만 하면 됨. 별도 배포 명령 불필요.
