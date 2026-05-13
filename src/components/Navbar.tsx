@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -19,7 +20,9 @@ export default function Navbar() {
     <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
       <div className="container">
         <div className="nav-inner">
-          <a href="#" className="logo">DMATE</a>
+          <a href="#" className="logo">
+            <Image src="/logo.png" alt="DMATE" width={120} height={36} priority />
+          </a>
           <ul className="nav-links">
             <li><a href="#services">서비스</a></li>
             <li><a href="#about">소개</a></li>

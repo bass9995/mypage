@@ -40,7 +40,7 @@ export default function Contact() {
               <span className="contact-icon">✉️</span>
               <div>
                 <strong>이메일</strong>
-                <p>hello@dmate.kr</p>
+                <p>swanbay@dmate.kr</p>
               </div>
             </div>
             <div className="contact-item">

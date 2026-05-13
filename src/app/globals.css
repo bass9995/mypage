@@ -84,11 +84,8 @@ ul { list-style: none; }
 .navbar.scrolled { background: rgba(15,23,42,0.95); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--border); }
 .nav-inner { display: flex; align-items: center; gap: 32px; height: 68px; }
 .logo {
-  font-size: 1.5rem; font-weight: 800;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display: flex;
+  align-items: center;
   margin-right: auto;
 }
 .nav-links { display: flex; gap: 28px; }

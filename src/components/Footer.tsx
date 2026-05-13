@@ -1,10 +1,12 @@
+import Image from 'next/image';
+
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-inner">
           <div className="footer-brand">
-            <span className="logo">DMATE</span>
+            <Image src="/logo.png" alt="DMATE" width={120} height={36} />
             <p>
               최신 기술과 창의적인 전략으로<br />
               고객의 비즈니스를 한 단계 더 끌어올립니다.
